@@ -1,4 +1,5 @@
 <?php
+//ceci est un test 
 // Projet TraceGPS
 // fichier : modele/DAO.test1.php
 // Rôle : test de la classe DAO.class.php
