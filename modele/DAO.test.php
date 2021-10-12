@@ -91,6 +91,57 @@ foreach ($lesUtilisateurs as $unUtilisateur)
 { echo ($unUtilisateur->toString());
 echo ('<br>');
 }
+
+// test de la méthode creerUnUtilisateur ----------------------------------------------------------
+// modifié par dP le 12/8/2021
+echo "<h3>Test de creerUnUtilisateur : </h3>";
+$unUtilisateur = new Utilisateur(0, "toto", "mdputilisateur", "toto@gmail.com", "5566778899", 1, date('Y-m-d H:i:s',
+    time()), 0, null);
+$ok = $dao->creerUnUtilisateur($unUtilisateur);
+if ($ok)
+{   echo "<p>Utilisateur bien enregistré !</p>";
+echo $unUtilisateur->toString();
+}
+else {
+    echo "<p>Echec lors de l'enregistrement de l'utilisateur !</p>";
+}
+
+// test de la méthode modifierMdpUtilisateur ------------------------------------------------------
+// modifié par dP le 12/8/2021
+echo "<h3>Test de modifierMdpUtilisateur : </h3>";
+$unUtilisateur = $dao->getUnUtilisateur("toto");
+if ($unUtilisateur) {
+    echo "<p>Ancien mot de passe de l'utilisateur toto : <b>" . $unUtilisateur->getMdpSha1() . "</b><br>";
+    $dao->modifierMdpUtilisateur("toto", "mdpadmin");
+    $unUtilisateur = $dao->getUnUtilisateur("toto");
+    echo "Nouveau mot de passe de l'utilisateur toto : <b>" . $unUtilisateur->getMdpSha1() . "</b><br>";
+    $niveauDeConnexion = $dao->getNiveauConnexion('toto', sha1('mdputilisateur'));
+    echo "Niveau de connexion de ('toto', 'mdputilisateur') : <b>" . $niveauDeConnexion . "</b><br>";
+    $niveauDeConnexion = $dao->getNiveauConnexion('toto', sha1('mdpadmin'));
+    echo "Niveau de connexion de ('toto', 'mdpadmin') : <b>" . $niveauDeConnexion . "</b></p>";
+}
+else {
+    echo "<p>L'utilisateur toto n'existe pas !</p>";
+}
+
+// test de la méthode supprimerUnUtilisateur ------------------------------------------------------
+// modifié par dP le 12/8/2021
+echo "<h3>Test de supprimerUnUtilisateur : </h3>";
+$ok = $dao->supprimerUnUtilisateur("toto");
+if ($ok) {
+    echo "<p>Utilisateur toto bien supprimé !</p>";
+}
+else {
+    echo "<p>Echec lors de la suppression de l'utilisateur toto !</p>";
+}
+$ok = $dao->supprimerUnUtilisateur("toto");
+if ($ok) {
+    echo "<p>Utilisateur toto bien supprimé !</p>";
+}
+else {
+    echo "<p>Echec lors de la suppression de l'utilisateur toto !</p>";
+}
+
 // ferme la connexion Ã  MySQL :
 unset($dao);
 ?>
