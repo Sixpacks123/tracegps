@@ -163,6 +163,7 @@ class DAO
             $unId = utf8_encode($uneLigne->id);
             $unPseudo = utf8_encode($uneLigne->pseudo);
             $unMdpSha1 = utf8_encode($uneLigne->mdpSha1);
+            
             $uneAdrMail = utf8_encode($uneLigne->adrMail);
             $unNumTel = utf8_encode($uneLigne->numTel);
             $unNiveau = utf8_encode($uneLigne->niveau);
@@ -205,7 +206,7 @@ class DAO
             $uneDateCreation = utf8_encode($uneLigne->dateCreation);
             $unNbTraces = utf8_encode($uneLigne->nbTraces);
             $uneDateDerniereTrace = utf8_encode($uneLigne->dateDerniereTrace);
-            
+         
             $unUtilisateur = new Utilisateur($unId, $unPseudo, $unMdpSha1, $uneAdrMail, $unNumTel, $unNiveau, $uneDateCreation, $unNbTraces, $uneDateDerniereTrace);
             // ajout de l'utilisateur à la collection
             $lesUtilisateurs[] = $unUtilisateur;

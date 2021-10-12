@@ -48,7 +48,7 @@ class Utilisateur
         $this->pseudo = $unPseudo;
         $this->mdpSha1 = $unMdpSha1;
         $this->adrMail = $uneAdrMail;
-        $this->numTel = $uneAdrMail;
+        $this->numTel = $unNumTel;
         $this->niveau = $unNiveau;
         $this->dateCreation = $uneDateCreation;
         $this->nbTraces = $unNbTraces;
