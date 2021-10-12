@@ -163,7 +163,7 @@ class DAO
             $unId = utf8_encode($uneLigne->id);
             $unPseudo = utf8_encode($uneLigne->pseudo);
             $unMdpSha1 = utf8_encode($uneLigne->mdpSha1);
-            
+
             $uneAdrMail = utf8_encode($uneLigne->adrMail);
             $unNumTel = utf8_encode($uneLigne->numTel);
             $unNiveau = utf8_encode($uneLigne->niveau);
