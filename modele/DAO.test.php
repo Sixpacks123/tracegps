@@ -1,10 +1,9 @@
 
 <?php
 // Projet TraceGPS
-//jules
 // fichier : modele/DAO.test1.php
 // Rôle : test de la classe DAO.class.php
-// Dernière mise à jour : xxxxxxxxxxxxxxxxx par xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+// Dernière mise à jour : aubin par xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 // Le code des tests restant à développer va être réparti entre les membres de l'équipe de développement.
 // Afin de limiter les conflits avec GitHub, il est décidé d'attribuer un fichier de test à chaque développeur.
