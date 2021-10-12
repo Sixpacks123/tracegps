@@ -353,12 +353,43 @@ class DAO
 
 
     // --------------------------------------------------------------------------------------
-    // début de la zone attribuée a XXXDarkAuinXXX
+    // début de la zone attribuée a XXXDarkAubinXXX
     // --------------------------------------------------------------------------------------
 
 
 
+public function getLesutilisateursAutorisant(){
 
+}
+
+
+/* test de la méthode getLesUtilisateursAutorisant ------------------------------------------------
+
+echo "<h3>Test de getLesUtilisateursAutorisant(idUtilisateur) : </h3>";
+$lesUtilisateurs = $dao->getLesUtilisateursAutorisant(4);
+$nbReponses = sizeof($lesUtilisateurs);
+echo "<p>Nombre d'utilisateurs autorisant l'utilisateur 4 à voir leurs parcours : " . $nbReponses . "</p>";
+// affichage des utilisateurs
+foreach ($lesUtilisateurs as $unUtilisateur)
+{   echo ($unUtilisateur->toString());
+echo ('<br>');
+}*/
+
+
+public function getLesUtilisateursAutorises(){
+
+}
+
+public function autoriseAConsulter(){
+
+}
+public function creerUneAutorisation(){
+
+}
+
+public function supprimerUneAutorisation(){
+
+}
 
 
 
