@@ -80,6 +80,17 @@ else {
     echo "<p>L'utilisateur admon n'existe pas !</p>";
 }
 
+// test de la méthode getTousLesUtilisateurs ------------------------------------------------------
+// modifié par dP le 12/8/2021
+echo "<h3>Test de getTousLesUtilisateurs : </h3>";
+$lesUtilisateurs = $dao->getTousLesUtilisateurs();
+$nbReponses = sizeof($lesUtilisateurs);
+echo "<p>Nombre d'utilisateurs : " . $nbReponses . "</p>";
+// affichage des utilisateurs
+foreach ($lesUtilisateurs as $unUtilisateur)
+{ echo ($unUtilisateur->toString());
+echo ('<br>');
+}
 // ferme la connexion à MySQL :
 unset($dao);
 ?>
