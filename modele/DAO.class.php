@@ -345,7 +345,7 @@ class DAO
     
     
     // --------------------------------------------------------------------------------------
-    // début de la zone attribuée a JulouDu56
+    // début de la zone attribuée a JulouDu56800
     // --------------------------------------------------------------------------------------
     public function existeAdrMailUtilisateur($adrMail){
         // préparation de la requête de recherche
