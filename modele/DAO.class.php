@@ -53,28 +53,29 @@ class DAO
     // ---------------------------------- Membres privés de la classe ---------------------------------------
     // ------------------------------------------------------------------------------------------------------
 
-    private $cnx;				// la connexion à la base de données
+    private $cnx;                // la connexion à la base de données
 
     // ------------------------------------------------------------------------------------------------------
     // ---------------------------------- Constructeur et destructeur ---------------------------------------
     // ------------------------------------------------------------------------------------------------------
-    public function __construct() {
+    public function __construct()
+    {
         global $PARAM_HOTE, $PARAM_PORT, $PARAM_BDD, $PARAM_USER, $PARAM_PWD;
-        try
-        {	$this->cnx = new PDO ("mysql:host=" . $PARAM_HOTE . ";port=" . $PARAM_PORT . ";dbname=" . $PARAM_BDD,
-            $PARAM_USER,
-            $PARAM_PWD);
+        try {
+            $this->cnx = new PDO ("mysql:host=" . $PARAM_HOTE . ";port=" . $PARAM_PORT . ";dbname=" . $PARAM_BDD,
+                $PARAM_USER,
+                $PARAM_PWD);
             return true;
-        }
-        catch (Exception $ex)
-        {	echo ("Echec de la connexion a la base de donnees <br>");
-            echo ("Erreur numero : " . $ex->getCode() . "<br />" . "Description : " . $ex->getMessage() . "<br>");
-            echo ("PARAM_HOTE = " . $PARAM_HOTE);
+        } catch (Exception $ex) {
+            echo("Echec de la connexion a la base de donnees <br>");
+            echo("Erreur numero : " . $ex->getCode() . "<br />" . "Description : " . $ex->getMessage() . "<br>");
+            echo("PARAM_HOTE = " . $PARAM_HOTE);
             return false;
         }
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         // ferme la connexion à MySQL :
         unset($this->cnx);
     }
@@ -89,7 +90,8 @@ class DAO
     //     1 : authentification correcte d'un utilisateur (pratiquant ou personne autorisée)
     //     2 : authentification correcte d'un administrateur
     // modifié par Jim le 11/1/2018
-    public function getNiveauConnexion($pseudo, $mdpSha1) {
+    public function getNiveauConnexion($pseudo, $mdpSha1)
+    {
         // préparation de la requête de recherche
         $txt_req = "Select niveau from tracegps_utilisateurs";
         $txt_req .= " where pseudo = :pseudo";
@@ -115,7 +117,8 @@ class DAO
 
     // fournit true si le pseudo $pseudo existe dans la table tracegps_utilisateurs, false sinon
     // modifié par Jim le 27/12/2017
-    public function existePseudoUtilisateur($pseudo) {
+    public function existePseudoUtilisateur($pseudo)
+    {
         // préparation de la requête de recherche
         $txt_req = "Select count(*) from tracegps_utilisateurs where pseudo = :pseudo";
         $req = $this->cnx->prepare($txt_req);
@@ -130,8 +133,7 @@ class DAO
         // fourniture de la réponse
         if ($nbReponses == 0) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -140,7 +142,8 @@ class DAO
     // fournit un objet Utilisateur à partir de son pseudo $pseudo
     // fournit la valeur null si le pseudo n'existe pas
     // modifié par Jim le 9/1/2018
-    public function getUnUtilisateur($pseudo) {
+    public function getUnUtilisateur($pseudo)
+    {
         // préparation de la requête de recherche
         $txt_req = "Select id, pseudo, mdpSha1, adrMail, numTel, niveau, dateCreation, nbTraces, dateDerniereTrace";
         $txt_req .= " from tracegps_vue_utilisateurs";
@@ -155,10 +158,9 @@ class DAO
         $req->closeCursor();
 
         // traitement de la réponse
-        if ( ! $uneLigne) {
+        if (!$uneLigne) {
             return null;
-        }
-        else {
+        } else {
             // création d'un objet Utilisateur
             $unId = utf8_encode($uneLigne->id);
             $unPseudo = utf8_encode($uneLigne->pseudo);
@@ -180,7 +182,8 @@ class DAO
     // fournit la collection  de tous les utilisateurs (de niveau 1)
     // le résultat est fourni sous forme d'une collection d'objets Utilisateur
     // modifié par Jim le 27/12/2017
-    public function getTousLesUtilisateurs() {
+    public function getTousLesUtilisateurs()
+    {
         // préparation de la requête de recherche
         $txt_req = "Select id, pseudo, mdpSha1, adrMail, numTel, niveau, dateCreation, nbTraces, dateDerniereTrace";
         $txt_req .= " from tracegps_vue_utilisateurs";
@@ -224,7 +227,8 @@ class DAO
     // fournit true si l'enregistrement s'est bien effectué, false sinon
     // met à jour l'objet $unUtilisateur avec l'id (auto_increment) attribué par le SGBD
     // modifié par Jim le 9/1/2018
-    public function creerUnUtilisateur($unUtilisateur) {
+    public function creerUnUtilisateur($unUtilisateur)
+    {
         // on teste si l'utilisateur existe déjà
         if ($this->existePseudoUtilisateur($unUtilisateur->getPseudo())) return false;
 
@@ -242,7 +246,9 @@ class DAO
         // exécution de la requête
         $ok = $req1->execute();
         // sortir en cas d'échec
-        if ( ! $ok) { return false; }
+        if (!$ok) {
+            return false;
+        }
 
         // recherche de l'identifiant (auto_increment) qui a été attribué à la trace
         $unId = $this->cnx->lastInsertId();
@@ -254,7 +260,8 @@ class DAO
     // enregistre le nouveau mot de passe $nouveauMdp de l'utilisateur $pseudo daprès l'avoir hashé en SHA1
     // fournit true si la modification s'est bien effectuée, false sinon
     // modifié par Jim le 9/1/2018
-    public function modifierMdpUtilisateur($pseudo, $nouveauMdp) {
+    public function modifierMdpUtilisateur($pseudo, $nouveauMdp)
+    {
         // préparation de la requête
         $txt_req = "update tracegps_utilisateurs set mdpSha1 = :nouveauMdp";
         $txt_req .= " where pseudo = :pseudo";
@@ -310,10 +317,11 @@ class DAO
     // envoie un mail à l'utilisateur $pseudo avec son nouveau mot de passe $nouveauMdp
     // retourne true si envoi correct, false en cas de problème d'envoi
     // modifié par Jim le 9/1/2018
-    public function envoyerMdp($pseudo, $nouveauMdp) {
+    public function envoyerMdp($pseudo, $nouveauMdp)
+    {
         global $ADR_MAIL_EMETTEUR;
         // si le pseudo n'est pas dans la table tracegps_utilisateurs :
-        if ( $this->existePseudoUtilisateur($pseudo) == false ) return false;
+        if ($this->existePseudoUtilisateur($pseudo) == false) return false;
 
         // recherche de l'adresse mail
         $adrMail = $this->getUnUtilisateur($pseudo)->getAdrMail();
@@ -322,8 +330,8 @@ class DAO
         $sujet = "Modification de votre mot de passe d'accès au service TraceGPS";
         $message = "Cher(chère) " . $pseudo . "\n\n";
         $message .= "Votre mot de passe d'accès au service service TraceGPS a été modifié.\n\n";
-        $message .= "Votre nouveau mot de passe est : " . $nouveauMdp ;
-        $ok = Outils::envoyerMail ($adrMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
+        $message .= "Votre nouveau mot de passe est : " . $nouveauMdp;
+        $ok = Outils::envoyerMail($adrMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
         return $ok;
     }
 
@@ -341,13 +349,11 @@ class DAO
     // Après avoir testé et validé une méthode, faites un commit et un push pour transmettre cette version aux autres développeurs.
 
 
-
-
-
     // --------------------------------------------------------------------------------------
     // début de la zone attribuée a JulouDu56800
     // --------------------------------------------------------------------------------------
-    public function existeAdrMailUtilisateur($adrMail){
+    public function existeAdrMailUtilisateur($adrMail)
+    {
         // préparation de la requête de recherche
         $txt_req = "Select count(*) from tracegps_utilisateurs where adrMail = :adrMail";
         $req = $this->cnx->prepare($txt_req);
@@ -362,8 +368,7 @@ class DAO
         // fourniture de la réponse
         if ($nbReponses == 0) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -376,8 +381,8 @@ class DAO
     // --------------------------------------------------------------------------------------
 
 
-
-    public function getLesUtilisateursAutorisant($idAutorise) {
+    public function getLesUtilisateursAutorisant($idAutorise)
+    {
         // préparation de la requête de recherche
         $txt_req = "Select id, pseudo, mdpSha1, adrMail, numTel, niveau, dateCreation, nbTraces, dateDerniereTrace";
         $txt_req .= " from tracegps_vue_utilisateurs INNER JOIN tracegps_autorisations ON tracegps_vue_utilisateurs.id = tracegps_autorisations.idAutorisant";
@@ -418,8 +423,8 @@ class DAO
     }
 
 
-
-    public function getLesUtilisateursAutorises($idAutorisant) {
+    public function getLesUtilisateursAutorises($idAutorisant)
+    {
         // préparation de la requête de recherche
         $txt_req = "Select idAutorise, pseudo, mdpSha1, adrMail, numTel, niveau, dateCreation, nbTraces, dateDerniereTrace";
         $txt_req .= " from tracegps_vue_utilisateurs INNER JOIN tracegps_autorisations ON tracegps_vue_utilisateurs.id = tracegps_autorisations.idAutorisant";
@@ -460,8 +465,8 @@ class DAO
     }
 
 
-
-    public function autoriseAConsulter($idAutorisant, $idAutorise ) {
+    public function autoriseAConsulter($idAutorisant, $idAutorise)
+    {
         $txt_req = "Select *";
         $txt_req .= " from tracegps_autorisations";
         $txt_req .= " where idAutorisant = :idAutorisant AND idAutorise =:idAutorise";
@@ -482,21 +487,33 @@ class DAO
         return false;
     }
 
-    public function creerUneAutorisation($idAutorisant, $idAutorise ){
-        //INSERT INTO tracegps_autorisations VALUES (2,5)
+    public function creerUneAutorisation($idAutorisant, $idAutorise)
+    {
+
         $txt_req = "INSERT INTO tracegps_autorisations VALUES (:idAutorisant,:idAutorise)";
         $req = $this->cnx->prepare($txt_req);
         $req->bindValue("idAutorisant", $idAutorisant, PDO::PARAM_STR);
         $req->bindValue("idAutorise", $idAutorise, PDO::PARAM_STR);
         $ok = $req->execute();
-        if ( ! $ok) { return false; } else return true;
+        if (!$ok) {
+            return false;
+        } else return true;
 
     }
 
-    public function supprimerUneAutorisation(){
-    //supprimer une autorisation
-
-}}
+    public function supprimerUneAutorisation($idAutorisant, $idAutorise)
+    {
+        $txt_req = "DELETE FROM  tracegps_autorisations where idAutorisant = :idAutorisant AND idAutorise =:idAutorise";
+        $req = $this->cnx->prepare($txt_req);
+        // liaison de la requête et de ses paramètres
+        $req->bindValue("idAutorisant", $idAutorisant, PDO::PARAM_STR);
+        $req->bindValue("idAutorise", $idAutorise, PDO::PARAM_STR);
+        $ok = $req->execute();
+        if (!$ok) {
+            return false;
+        } else return true;
+    }
+}
 
 
 
