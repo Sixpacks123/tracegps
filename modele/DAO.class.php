@@ -481,11 +481,20 @@ class DAO
         }
         return false;
     }
-    public function creerUneAutorisation(){
+
+    public function creerUneAutorisation($idAutorisant, $idAutorise ){
+        //INSERT INTO tracegps_autorisations VALUES (2,5)
+        $txt_req = "INSERT INTO tracegps_autorisations VALUES (:idAutorisant,:idAutorise)";
+        $req = $this->cnx->prepare($txt_req);
+        $req->bindValue("idAutorisant", $idAutorisant, PDO::PARAM_STR);
+        $req->bindValue("idAutorise", $idAutorise, PDO::PARAM_STR);
+        $ok = $req->execute();
+        if ( ! $ok) { return false; } else return true;
 
     }
 
     public function supprimerUneAutorisation(){
+    //supprimer une autorisation
 
 }}
 
