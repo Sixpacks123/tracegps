@@ -551,6 +551,43 @@ class DAO
             return false;
         } else return true;
     }
+
+    public function getUneTrace($idTrace)
+    {
+        $txt_req = "Select id, dateDebut, DateFin, terminee, idUtilisateur";
+        $txt_req .= " from tracegps_traces";
+        $txt_req .= " where id = :id";
+
+        $req = $this->cnx->prepare($txt_req);
+        // liaison de la requête et de ses paramètres
+        $req->bindValue("id", $idTrace, PDO::PARAM_STR);
+        // extraction des données
+        $req->execute();
+        $uneLigne = $req->fetch(PDO::FETCH_OBJ);
+        // libère les ressources du jeu de données
+        $req->closeCursor();
+
+        // traitement de la réponse
+        if (!$uneLigne) {
+            return null;
+        } else {
+            $unId = utf8_encode($uneLigne->id);
+            $uneDateDebut = utf8_encode($uneLigne->dateDebut);
+            $uneDateFin = utf8_encode($uneLigne->DateFin);
+            $terminee = utf8_encode($uneLigne->terminee);
+            $idUtilisateur = utf8_encode($uneLigne->idUtilisateur);
+
+            $uneTrace = new Trace($unId,$uneDateDebut,$uneDateFin,$terminee,$idUtilisateur);
+            $lesPoint = $this->getLesPointsDeTrace($unId);
+
+            foreach ($lesPoint as $lesNouveauxPoint ) {
+                $uneTrace->ajouterPoint($lesNouveauxPoint);
+            }
+
+            return $uneTrace;
+        }
+    }
+
 }
 
 
