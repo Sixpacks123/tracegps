@@ -123,7 +123,7 @@ if ($unUtilisateur) {
 else {
     echo "<p>L'utilisateur toto n'existe pas !</p>";
 }
-
+/*
 // test de la méthode supprimerUnUtilisateur ------------------------------------------------------
 // modifié par dP le 12/8/2021
 echo "<h3>Test de supprimerUnUtilisateur : </h3>";
@@ -141,6 +141,20 @@ if ($ok) {
 else {
     echo "<p>Echec lors de la suppression de l'utilisateur toto !</p>";
 }
+*/
+// test de la méthode getLesUtilisateursAutorisant ------------------------------------------------
+
+echo "<h3>Test de getLesUtilisateursAutorisant(idUtilisateur) : </h3>";
+$lesUtilisateurs = $dao->getLesUtilisateursAutorisant(4);
+
+$nbReponses = sizeof($lesUtilisateurs);
+echo "<p>Nombre d'utilisateurs autorisant l'utilisateur 4 à voir leurs parcours : " . $nbReponses . "</p>";
+// affichage des utilisateurs
+foreach ($lesUtilisateurs as $unUtilisateur)
+{   echo ($unUtilisateur->toString());
+echo ('<br>');
+}
+
 
 // ferme la connexion Ã  MySQL :
 unset($dao);
