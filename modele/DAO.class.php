@@ -559,7 +559,7 @@ class DAO
     {
         $txt_req = "DELETE FROM  tracegps_autorisations where idAutorisant = :idAutorisant AND idAutorise =:idAutorise";
         $req = $this->cnx->prepare($txt_req);
-        // liaison de la requête et de ses paramètres
+        // liaison de la requête et de ses paramètresd
         $req->bindValue("idAutorisant", $idAutorisant, PDO::PARAM_STR);
         $req->bindValue("idAutorise", $idAutorise, PDO::PARAM_STR);
         $ok = $req->execute();
