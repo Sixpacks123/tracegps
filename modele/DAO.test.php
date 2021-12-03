@@ -217,6 +217,17 @@ else {
     echo "<p>La trace 100 n'existe pas !</p>";
 }
 
+// test de la méthode getToutesLesTraces ----------------------------------------------------------
+// modifié par dP le 14/8/2021
+echo "<h3>Test de getToutesLesTraces : </h3>";
+$lesTraces = $dao->getToutesLesTraces();
+$nbReponses = sizeof($lesTraces);
+echo "<p>Nombre de traces : " . $nbReponses . "</p>";
+// affichage des traces
+foreach ($lesTraces as $uneTrace)
+{   echo ($uneTrace->toString());
+    echo ('<br>');
+}
 // ferme la connexion Ã  MySQL :
 unset($dao);
 ?>
