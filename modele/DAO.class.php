@@ -604,20 +604,44 @@ class DAO
         }
     }
 
-    public function getToutesLesTraces(){
-        $txt_req = "Select Count(*)";
-        $txt_req .= " from tracegps_traces";
-        $req = $this->cnx->prepare($txt_req);
-        $req->execute();
-        $nbReponses = $req->fetchColumn(0);
-    $Trace = [];
-        //$Trace = array();
-        for($i = 0; $i< $nbReponses;$i++) {
-            //array_push($Trace,$this->getLesPointsDeTrace($i));
-            $Trace += $this->getLesPointsDeTrace($i);
-        }
-        return $Trace;
+    public function getToutesLesTraces () {
+        // préparation de la requête de recherche
+        $txt_req = "Select id, dateDebut, DateFin, terminee, idUtilisateur";
+        $txt_req .= " from tracegps_traces order by id";
 
+
+        $req = $this->cnx->prepare($txt_req);
+        // extraction des données
+        $req->execute();
+        $uneLigne = $req->fetch(PDO::FETCH_OBJ);
+
+        // construction d'une collection d'objets Utilisateur
+        $lesTraces = array();
+        // tant qu'une ligne est trouvée :
+        while ($uneLigne) {
+            // création d'un objet Utilisateur
+            $unId = utf8_encode($uneLigne->id);
+            $uneDateDebut = utf8_encode($uneLigne->dateDebut);
+            $uneDateFin = utf8_encode($uneLigne->DateFin);
+            $terminee = utf8_encode($uneLigne->terminee);
+            $idUtilisateur = utf8_encode($uneLigne->idUtilisateur);
+
+            $uneTrace = new Trace($unId, $uneDateDebut, $uneDateFin, $terminee, $idUtilisateur);
+
+            $lespoint = $this->getLesPointsDeTrace($unId);
+            foreach ($lespoint as $leNouveauPoint){
+                $uneTrace->ajouterPoint($leNouveauPoint);
+            }
+
+            // ajout de l'utilisateur à la collection
+            $lesTraces[] = $uneTrace;
+            // extrait la ligne suivante
+            $uneLigne = $req->fetch(PDO::FETCH_OBJ);
+        }
+        // libère les ressources du jeu de données
+        $req->closeCursor();
+        // fourniture de la collection
+        return $lesTraces;
     }
 
 }
