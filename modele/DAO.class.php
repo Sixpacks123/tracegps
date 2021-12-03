@@ -588,6 +588,11 @@ class DAO
         }
     }
 
+    public function getToutesLesTraces(){
+
+        //rerturn objet trace
+    }
+
 }
 
 
