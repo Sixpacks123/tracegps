@@ -605,8 +605,19 @@ class DAO
     }
 
     public function getToutesLesTraces(){
+        $txt_req = "Select Count(*)";
+        $txt_req .= " from tracegps_traces";
+        $req = $this->cnx->prepare($txt_req);
+        $req->execute();
+        $nbReponses = $req->fetchColumn(0);
+    $Trace = [];
+        //$Trace = array();
+        for($i = 0; $i< $nbReponses;$i++) {
+            //array_push($Trace,$this->getLesPointsDeTrace($i));
+            $Trace += $this->getLesPointsDeTrace($i);
+        }
+        return $Trace;
 
-        //rerturn objet trace
     }
 
 }
