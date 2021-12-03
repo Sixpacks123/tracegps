@@ -413,6 +413,22 @@ class DAO
         return $lesPointsDeTrace;
     }
 
+    public function creerUnPointDeTrace($unPointDeTrace){
+        $txt_req = "insert into tracegps_points (idTrace, id, latitude, longitude, altitude, dateHeure, rythmeCardio)";
+        $txt_req .= " values (:idTrace,:id, :latitude, :longitude, :altitude, :dateHeure, :rythmeCardio) ";
+        $req = $this->cnx->prepare($txt_req);
+        $req->bindValue("idTrace", utf8_decode($unPointDeTrace->GetIdTrace()), PDO::PARAM_STR);
+        $req->bindValue("id", utf8_decode(sha1($unPointDeTrace->GetId())), PDO::PARAM_STR);
+        $req->bindValue("latitude", utf8_decode($unPointDeTrace->GetLatitude()), PDO::PARAM_STR);
+        $req->bindValue("longitude", utf8_decode($unPointDeTrace->GetLongitude()), PDO::PARAM_STR);
+        $req->bindValue("altitude", utf8_decode($unPointDeTrace->GetAltitude()), PDO::PARAM_STR);
+        $req->bindValue("dateHeure", utf8_decode($unPointDeTrace->GetDateHeure()), PDO::PARAM_STR);
+        $req->bindValue("rythmeCardio", utf8_decode($unPointDeTrace->GetRythmeCardio()), PDO::PARAM_STR);
+        $ok = $req->execute();
+        if (!$ok) {
+            return false;
+        } else return true;
+    }
 
     // --------------------------------------------------------------------------------------
     // début de la zone attribuée a XXXDarkAubinXXX
