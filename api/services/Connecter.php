@@ -14,8 +14,8 @@
 //     http://<hébergeur>/tracegps/api/Connecter?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&lang=xml
 
 // Pour tester le service avec CURL :
-// curl -i -X GET "http://localhost/ws-php-cartron/tracegps/api/Connecter?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&lang=json"
-// curl -i -X GET "http://localhost/ws-php-cartron/tracegps/api/Connecter?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&lang=xml"
+// curl -i -X GET "http://localhost/ws-php-aubin/tracegps/api/Connecter?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&lang=json"
+// curl -i -X GET "http://localhost/ws-php-aubin/tracegps/api/Connecter?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&lang=xml"
 // curl -i -X POST "http://localhost/ws-php-cartron/tracegps/api/Connecter?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&lang=json"
 
 // curl -i -X GET "http://sio.lyceedelasalle.fr/tracegps/api/Connecter?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&lang=json"
@@ -93,23 +93,19 @@ function creerFluxXML($msg)
      */
     
     // crée une instance de DOMdocument (DOM : Document Object Model)
-	$doc = new DOMDocument();
-	
-	// specifie la version et le type d'encodage
-	$doc->xmlVersion = '1.0';
-	$doc->encoding = 'UTF-8';
-	
+	$doc = new DOMDocument('1.0','UTF-8');
+
 	// crée un commentaire et l'encode en UTF-8
-	$elt_commentaire = $doc->createComment('Service web Connecter - BTS SIO - Lycée De La Salle - Rennes');
+	$elt_commentaire = $doc->createComment("Service web Connecter - BTS SIO - Lycée De La Salle - Rennes");
 	// place ce commentaire à la racine du document XML
 	$doc->appendChild($elt_commentaire);
 	
 	// crée l'élément 'data' à la racine du document XML
-	$elt_data = $doc->createElement('data');
+	$elt_data = $doc->createElement("data");
 	$doc->appendChild($elt_data);
 	
 	// place l'élément 'reponse' juste après l'élément 'data'
-	$elt_reponse = $doc->createElement('reponse', $msg);
+	$elt_reponse = $doc->createElement("reponse", $msg);
 	$elt_data->appendChild($elt_reponse);
 	
 	// Mise en forme finale

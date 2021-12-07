@@ -92,22 +92,22 @@ foreach ($lesUtilisateurs as $unUtilisateur)
 echo ('<br>');
 }
 
-// test de la méthode creerUnUtilisateur ----------------------------------------------------------
-// modifié par dP le 12/8/2021
+// test de la mï¿½thode creerUnUtilisateur ----------------------------------------------------------
+// modifiï¿½ par dP le 12/8/2021
 echo "<h3>Test de creerUnUtilisateur : </h3>";
 $unUtilisateur = new Utilisateur(0, "toto", "mdputilisateur", "toto@gmail.com", "5566778899", 1, date('Y-m-d H:i:s',
     time()), 0, null);
 $ok = $dao->creerUnUtilisateur($unUtilisateur);
 if ($ok)
-{   echo "<p>Utilisateur bien enregistré !</p>";
+{   echo "<p>Utilisateur bien enregistrï¿½ !</p>";
 echo $unUtilisateur->toString();
 }
 else {
     echo "<p>Echec lors de l'enregistrement de l'utilisateur !</p>";
 }
 
-// test de la méthode modifierMdpUtilisateur ------------------------------------------------------
-// modifié par dP le 12/8/2021
+// test de la mï¿½thode modifierMdpUtilisateur ------------------------------------------------------
+// modifiï¿½ par dP le 12/8/2021
 echo "<h3>Test de modifierMdpUtilisateur : </h3>";
 $unUtilisateur = $dao->getUnUtilisateur("toto");
 if ($unUtilisateur) {
@@ -124,31 +124,31 @@ else {
     echo "<p>L'utilisateur toto n'existe pas !</p>";
 }
 /*
-// test de la méthode supprimerUnUtilisateur ------------------------------------------------------
-// modifié par dP le 12/8/2021
+// test de la mï¿½thode supprimerUnUtilisateur ------------------------------------------------------
+// modifiï¿½ par dP le 12/8/2021
 echo "<h3>Test de supprimerUnUtilisateur : </h3>";
 $ok = $dao->supprimerUnUtilisateur("toto");
 if ($ok) {
-    echo "<p>Utilisateur toto bien supprimé !</p>";
+    echo "<p>Utilisateur toto bien supprimï¿½ !</p>";
 }
 else {
     echo "<p>Echec lors de la suppression de l'utilisateur toto !</p>";
 }
 $ok = $dao->supprimerUnUtilisateur("toto");
 if ($ok) {
-    echo "<p>Utilisateur toto bien supprimé !</p>";
+    echo "<p>Utilisateur toto bien supprimï¿½ !</p>";
 }
 else {
     echo "<p>Echec lors de la suppression de l'utilisateur toto !</p>";
 }
 */
-// test de la méthode getLesUtilisateursAutorisant ------------------------------------------------
+// test de la mï¿½thode getLesUtilisateursAutorisant ------------------------------------------------
 
 echo "<h3>Test de getLesUtilisateursAutorisant(idUtilisateur) : </h3>";
 $lesUtilisateurs = $dao->getLesUtilisateursAutorisant(4);
 
 $nbReponses = sizeof($lesUtilisateurs);
-echo "<p>Nombre d'utilisateurs autorisant l'utilisateur 4 à voir leurs parcours : " . $nbReponses . "</p>";
+echo "<p>Nombre d'utilisateurs autorisant l'utilisateur 4 ï¿½ voir leurs parcours : " . $nbReponses . "</p>";
 // affichage des utilisateurs
 foreach ($lesUtilisateurs as $unUtilisateur)
 {   echo ($unUtilisateur->toString());
@@ -156,12 +156,12 @@ echo ('<br>');
 }
 
 
-// test de la méthode getLesUtilisateursAutorises -------------------------------------------------
-// modifié par dP le 13/8/2021
+// test de la mï¿½thode getLesUtilisateursAutorises -------------------------------------------------
+// modifiï¿½ par dP le 13/8/2021
 echo "<h3>Test de getLesUtilisateursAutorises(idUtilisateur) : </h3>";
 $lesUtilisateurs = $dao->getLesUtilisateursAutorises(2);
 $nbReponses = sizeof($lesUtilisateurs);
-echo "<p>Nombre d'utilisateurs autorisés par l'utilisateur 2 : " . $nbReponses . "</p>";
+echo "<p>Nombre d'utilisateurs autorisï¿½s par l'utilisateur 2 : " . $nbReponses . "</p>";
 // affichage des utilisateurs
 foreach ($lesUtilisateurs as $unUtilisateur)
 { echo ($unUtilisateur->toString());
@@ -169,8 +169,8 @@ foreach ($lesUtilisateurs as $unUtilisateur)
 }
 
 
-//test de la méthode autoriseAConsulter ----------------------------------------------------------
-// modifié par dP le 13/8/2021
+//test de la mï¿½thode autoriseAConsulter ----------------------------------------------------------
+// modifiï¿½ par dP le 13/8/2021
 echo "<h3>Test de autoriseAConsulter : </h3>";
 if ($dao->autoriseAConsulter(2, 3)) $autorise = "oui"; else $autorise = "non";
 echo "<p>L'utilisateur 2 autorise l'utilisateur 3 : <b>" . $autorise . "</b><br>";
@@ -179,28 +179,28 @@ if ($dao->autoriseAConsulter(3, 2)) $autorise = "oui"; else $autorise = "non";
 echo "<p>L'utilisateur 3 autorise l'utilisateur 2 : <b>" . $autorise . "</b><br>";
 
 
-// test de la méthode creerUneAutorisation ---------------------------------------------------------
-// modifié par dP le 13/8/2021
+// test de la mï¿½thode creerUneAutorisation ---------------------------------------------------------
+// modifiï¿½ par dP le 13/8/2021
 echo "<h3>Test de creerUneAutorisation : </h3>";
 if ($dao->creerUneAutorisation(2, 1)) $ok = "oui"; else $ok = "non";
-echo "<p>La création de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a réussi : <b>" . $ok . "</b><br>";
-// la même autorisation ne peut pas être enregistrée 2 fois
+echo "<p>La crï¿½ation de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a rï¿½ussi : <b>" . $ok . "</b><br>";
+// la mï¿½me autorisation ne peut pas ï¿½tre enregistrï¿½e 2 fois
 if ($dao->creerUneAutorisation(2, 1)) $ok = "oui"; else $ok = "non";
-echo "<p>La création de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a réussi : <b>" . $ok . "</b><br>";
+echo "<p>La crï¿½ation de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a rï¿½ussi : <b>" . $ok . "</b><br>";
 
-// test de la méthode supprimerUneAutorisation ----------------------------------------------------
-// modifié par dP le 13/8/2021
+// test de la mï¿½thode supprimerUneAutorisation ----------------------------------------------------
+// modifiï¿½ par dP le 13/8/2021
 echo "<h3>Test de supprimerUneAutorisation : </h3>";
-// on crée une autorisation
+// on crï¿½e une autorisation
 if ($dao->creerUneAutorisation(2, 1)) $ok = "oui"; else $ok = "non";
-echo "<p>La création de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a réussi : <b>" . $ok . "</b><br>";
+echo "<p>La crï¿½ation de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a rï¿½ussi : <b>" . $ok . "</b><br>";
 // puis on la supprime
 if ($dao->supprimerUneAutorisation(2, 1)) $ok = "oui"; else $ok = "non";
-echo "<p>La suppression de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a réussi : <b>" . $ok . "</b><br>";
+echo "<p>La suppression de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a rï¿½ussi : <b>" . $ok . "</b><br>";
 
 
-// test de la méthode getUneTrace -----------------------------------------------------------------
-// modifié par dP le 14/8/2021
+// test de la mï¿½thode getUneTrace -----------------------------------------------------------------
+// modifiï¿½ par dP le 14/8/2021
 echo "<h3>Test de getUneTrace : </h3>";
 $uneTrace = $dao->getUneTrace(2);
 if ($uneTrace) {
@@ -217,8 +217,8 @@ else {
     echo "<p>La trace 100 n'existe pas !</p>";
 }
 
-// test de la méthode getToutesLesTraces ----------------------------------------------------------
-// modifié par dP le 14/8/2021
+// test de la mï¿½thode getToutesLesTraces ----------------------------------------------------------
+// modifiï¿½ par dP le 14/8/2021
 echo "<h3>Test de getToutesLesTraces : </h3>";
 $lesTraces = $dao->getToutesLesTraces();
 $nbReponses = sizeof($lesTraces);

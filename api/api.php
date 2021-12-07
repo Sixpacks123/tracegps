@@ -45,9 +45,9 @@ class Api extends Rest
             
             // l'action demandée n'existe pas, la réponse est 404 ("Page not found") et aucune donnée n'est envoyée
             default : {
-                $code_reponse = 404;
-                $content_type = "application/json; charset=utf-8";
-                $donnees = '';// indique le format Json pour la réponse
+                $code_reponse = 404;            
+                $donnees = '';
+                $content_type = "application/json; charset=utf-8";      // indique le format Json pour la réponse
                 $this->envoyerReponse($code_reponse, $content_type, $donnees);    // envoi de la réponse HTTP
                 break;
             }  
@@ -58,32 +58,32 @@ class Api extends Rest
     
     // Ce service permet permet à un utilisateur de s'authentifier
     private function Connecter()
-    {   include_once("services/Connecter.php");
+    {   include_once ("services/Connecter.php");
     }
     
     // Ce service permet permet à un utilisateur de changer son mot de passe
     private function ChangerDeMdp()
-    {   include_once("services/ChangerDeMdp.php");
+    {   include_once ("services/ChangerDeMdp.php");
     }
     
     // Ce service permet permet à un utilisateur de se créer un compte
     private function CreerUnUtilisateur()
-    {   include_once("services/CreerUnUtilisateur.php");
+    {   include_once ("services/CreerUnUtilisateur.php");
     }
     
     // Ce service permet à un utilisateur authentifié d'obtenir la liste de tous les utilisateurs (de niveau 1)
     private function GetTousLesUtilisateurs()
-    {   include_once("services/GetTousLesUtilisateurs.php");
+    {   include_once ("services/GetTousLesUtilisateurs.php");
     }
     
     // Ce service permet à un administrateur de supprimer un utilisateur (à condition qu'il ne possède aucune trace enregistrée)
     private function SupprimerUnUtilisateur()
-    {   include_once("services/SupprimerUnUtilisateur.php");
+    {   include_once ("services/SupprimerUnUtilisateur.php");
     }
     
     // Ce service permet à un utilisateur destinataire d'accepter ou de rejeter une demande d'autorisation provenant d'un utilisateur demandeur
     private function ValiderDemandeAutorisation()
-    {   include_once("services/ValiderDemandeAutorisation.php");
+    {   include_once ("services/ValiderDemandeAutorisation.php");
     }
     
     // services web restant à développer ==============================================================================
