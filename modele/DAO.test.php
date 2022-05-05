@@ -31,7 +31,7 @@ include_once ('DAO.class.php');
 $dao = new DAO(); 
  
 // test de la mÃ©thode getNiveauConnexion ---------------------------------------------------------- 
-// modifiÃ© par DP le 12/8/2021 
+
 echo "<h3>Test de getNiveauConnexion : </h3>"; 
 $niveau = $dao->getNiveauConnexion("admin", sha1("mdpadmin")); 
 echo "<p>Niveau de ('admin', 'mdpadmin') : " . $niveau . "</br>";  
@@ -45,7 +45,7 @@ echo "<p>Niveau de ('toto', 'mdputilisateur') : " . $niveau . "</br>";
 
 
 // test de la mÃ©thode existePseudoUtilisateur -----------------------------------------------------
-// modifiÃ© par DP le 12/8/2021
+
 echo "<h3>Test de existePseudoUtilisateur : </h3>";
 if ($dao->existePseudoUtilisateur("admin")) $existe = "oui"; else $existe = "non";
 echo "<p>Existence de l'utilisateur 'admin' : <b>" . $existe . "</b><br>";
@@ -55,7 +55,7 @@ if ($dao->existePseudoUtilisateur("toto")) $existe = "oui"; else $existe = "non"
 echo "Existence de l'utilisateur 'toto' : <b>" . $existe . "</b></p>";
 
 // test de la mÃ©thode getUnUtilisateur -----------------------------------------------------------
-// modifiÃ© par dP le 12/8/2021
+
 echo "<h3>Test de getUnUtilisateur : </h3>";
 $unUtilisateur = $dao->getUnUtilisateur("admin");
 if ($unUtilisateur) {
